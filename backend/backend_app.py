@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-from MasterblogAPI.data import load_posts, validate_post_data
+from ..data import load_posts, validate_post_data
 
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
