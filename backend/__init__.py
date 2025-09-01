@@ -1,1 +1,0 @@
-from .backend_app import get_posts, add_post
