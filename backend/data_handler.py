@@ -65,6 +65,6 @@ def find_post_by_id(post_id):
 
 
 def validate_post_data(data):
-    if "title" not in data or "author" not in data:
+    if "title" not in data or "content" not in data:
         return False
     return True
