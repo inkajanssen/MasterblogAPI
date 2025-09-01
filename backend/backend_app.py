@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-from ..data import load_posts, validate_post_data
+from MasterblogAPI import load_posts, validate_post_data, save_post
 
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
@@ -28,6 +28,8 @@ def add_post():
 
     new_id=max(post['id'] for post in posts) +1
     new_post['id'] = new_id
+
+    save_post(new_post)
 
     return jsonify(new_post), 201
 

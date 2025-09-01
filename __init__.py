@@ -1,3 +1,1 @@
-from data import *
-from backend import *
-from frontend import *
+from .data import load_posts, validate_post_data, save_post
