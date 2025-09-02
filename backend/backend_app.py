@@ -10,6 +10,22 @@ CORS(app)  # This will enable CORS for all routes
 @app.route('/api/posts', methods=['GET'])
 def get_posts():
     posts = load_posts()
+
+    sort = request.args.get('sort', 'title')
+    direction = request.args.get('direction', 'asc')
+
+    valid_sorts = ['title', 'content']
+    if sort not in valid_sorts:
+        sort = 'title'
+
+    valid_directions = ['asc', 'desc']
+    if direction not in valid_directions:
+        direction = 'asc'
+
+    posts.sort(key=lambda post: post[sort])
+    if direction == 'desc':
+        posts.reverse()
+
     return jsonify(posts)
 
 
