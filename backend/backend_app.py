@@ -74,7 +74,7 @@ def search_for_post():
     content_query = request.args.get('content', '').lower()
 
     if not title_query and not content_query:
-        return "No post fits the query"
+        return "No post fits the query", 404
 
     for post in posts:
         post_title = post.get('title', '').lower()
@@ -83,6 +83,9 @@ def search_for_post():
         if ((title_query and title_query in post_title)
                 or (content_query and content_query in post_content)):
             results.append(post)
+
+    if not results:
+        return "No post was found", 404
 
     return jsonify(results)
 
