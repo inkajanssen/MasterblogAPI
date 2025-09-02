@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-from data_handler import load_posts, validate_post_data, save_post, find_post_by_id, delete_post
+from data_handler import load_posts, validate_post_data, save_post, find_post_by_id, delete_post_from_data, update_post_in_data
 
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
@@ -33,6 +33,7 @@ def add_post():
 
     return jsonify(new_post), 201
 
+
 @app.route('/api/posts/<int:id>', methods=['DELETE'])
 def delete_post(id):
     """
@@ -45,7 +46,7 @@ def delete_post(id):
     if post is None:
         return 'The Post was not found', 404
 
-    delete_post(post)
+    delete_post_from_data(post)
 
     return f"Post with id {id} has been deleted successfully.", 200
 

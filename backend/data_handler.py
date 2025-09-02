@@ -30,7 +30,7 @@ def save_post(entry:dict):
         json.dump(post_data, file)
 
 
-def delete_post(entry:dict):
+def delete_post_from_data(entry:dict):
     """
     Saves after deleting a post
     :param entry:
@@ -43,7 +43,7 @@ def delete_post(entry:dict):
         json.dump(posts_data, file)
 
 
-def update_post(entry:dict):
+def update_post_in_data(entry:dict):
     post_data = load_posts()
     for post in post_data:
         if post.get('id') == entry.get('id'):

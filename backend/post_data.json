@@ -8,5 +8,10 @@
     "id": 2,
     "title": "Second post",
     "content": "This is the second post."
+  },
+  {
+    "title": "Third post",
+    "content": "This is the third post.",
+    "id": 3
   }
 ]
