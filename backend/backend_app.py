@@ -50,6 +50,18 @@ def delete_post(id):
 
     return f"Post with id {id} has been deleted successfully.", 200
 
+@app.route('/api/posts/<int:id>', methods=['PUT'])
+def update_post(id):
+    post = find_post_by_id(id)
+
+    if post is None:
+        return 'The post was not found', 400
+
+    new_post = request.get_json()
+    new_post['id'] = id
+    update_post_in_data(new_post)
+
+    return jsonify(new_post)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5002, debug=True)
