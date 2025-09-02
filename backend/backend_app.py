@@ -77,10 +77,11 @@ def search_for_post():
         return "No post fits the query"
 
     for post in posts:
-        post_title = post.get('title').lower()
-        post_content = post.get('content').lower()
+        post_title = post.get('title', '').lower()
+        post_content = post.get('content', '').lower()
 
-        if (title_query in post_title) or (content_query in post_content):
+        if ((title_query and title_query in post_title)
+                or (content_query and content_query in post_content)):
             results.append(post)
 
     return jsonify(results)
