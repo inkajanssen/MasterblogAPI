@@ -50,6 +50,7 @@ def delete_post(id):
 
     return f"Post with id {id} has been deleted successfully.", 200
 
+
 @app.route('/api/posts/<int:id>', methods=['PUT'])
 def update_post(id):
     post = find_post_by_id(id)
@@ -62,6 +63,28 @@ def update_post(id):
     update_post_in_data(new_post)
 
     return jsonify(new_post)
+
+
+@app.route('/api/posts/search', methods=['GET'])
+def search_for_post():
+    posts = load_posts()
+    results = []
+
+    title_query = request.args.get('title', '').lower()
+    content_query = request.args.get('content', '').lower()
+
+    if not title_query and not content_query:
+        return "No post fits the query"
+
+    for post in posts:
+        post_title = post.get('title').lower()
+        post_content = post.get('content').lower()
+
+        if (title_query in post_title) or (content_query in post_content):
+            results.append(post)
+
+    return jsonify(results)
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5002, debug=True)
