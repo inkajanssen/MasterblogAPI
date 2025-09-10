@@ -42,7 +42,10 @@ def add_post():
     if not validate_post_data(new_post):
         return jsonify({"error": "Invalid post data"}), 400
 
-    new_id=max(post['id'] for post in posts) +1
+    if posts:
+        new_id = max(post['id'] for post in posts) + 1
+    else:
+        new_id = 1
     new_post['id'] = new_id
 
     save_post(new_post)
@@ -60,7 +63,7 @@ def delete_post(id):
     post = find_post_by_id(id)
 
     if post is None:
-        return 'The Post was not found', 404
+        return jsonify('The Post was not found'), 404
 
     delete_post_from_data(post)
 
@@ -72,7 +75,7 @@ def update_post(id):
     post = find_post_by_id(id)
 
     if post is None:
-        return 'The post was not found', 400
+        return jsonify('The Post was not found'), 404
 
     new_post = request.get_json()
     new_post['id'] = id
